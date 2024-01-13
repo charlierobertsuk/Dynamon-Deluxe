@@ -12,7 +12,14 @@ class Tree(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self,pos,group):
         super().__init__(group)
-        self.image = pygame.image.load('graphics/player.png').convert_alpha() # finds the player image in the graphics folder
+
+        # selects a random gender for the player
+        randgender = randint (1,2)
+        if randgender == 1:
+            self.image = pygame.image.load('graphics/player-m.png').convert_alpha() # finds the player image in the graphics folder
+        else:
+            self.image = pygame.image.load('graphics/player-w.png').convert_alpha() # finds the player image in the graphics folder
+
         self.rect = self.image.get_rect(center = pos) # center the image on a given coordinate
         self.direction = pygame.math.Vector2()
         self.speed = 5 # gives player a set speed
