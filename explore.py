@@ -11,6 +11,9 @@ class Tree(pygame.sprite.Sprite):
 #player class
 class Player(pygame.sprite.Sprite):
     def __init__(self,pos,group):
+
+        # the super() function is used to give access to methods and properties of a parent or sibling class
+        # the super() function returns an object that represents the parent class
         super().__init__(group)
 
         # selects a random gender for the player
@@ -27,7 +30,7 @@ class Player(pygame.sprite.Sprite):
     def input(self):
         keys = pygame.key.get_pressed() # press a key on the keyboard
 
-        # this is all using wasd to move in the correct directions
+        # wasd to navigate
 
         # y coordinates - up and down
         if keys[pygame.K_w]:
@@ -74,7 +77,6 @@ class CameraGroup(pygame.sprite.Group):
 
         # camera speed
         self.keyboard_speed = 5
-        self.mouse_speed = 0.2
 
     def center_target_camera(self,target):
         self.offset.x = target.rect.centerx - self.half_w # centers camera to player on the x axis
@@ -96,7 +98,7 @@ class CameraGroup(pygame.sprite.Group):
         self.offset.x = self.camera_rect.left - self.camera_borders['left']
         self.offset.y = self.camera_rect.top - self.camera_borders['top']
 
-    # keybinds to move camera
+    # keybinds to move camera with the arrow keys
     def keyboard_control(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]: self.camera_rect.x -= self.keyboard_speed
@@ -107,7 +109,6 @@ class CameraGroup(pygame.sprite.Group):
         # another offset so the manual movement of the camera actualy works
         self.offset.x = self.camera_rect.left - self.camera_borders['left']
         self.offset.y = self.camera_rect.top - self.camera_borders['top']
-
 
     def custom_draw(self,player): # ysort camera - so basicaly the player can now move in front and behind a tree for example to make a sorta fake 3d feel to the world
         
@@ -154,4 +155,4 @@ while True:
     camera_group.custom_draw(player)
 
     pygame.display.update()
-    clock.tick(60) # fps
+    clock.tick(60) # fps - set to 60 fps as default
