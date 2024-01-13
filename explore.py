@@ -60,6 +60,13 @@ class CameraGroup(pygame.sprite.Group):
         self.half_w = self.display_surface.get_size()[0] // 2
         self.half_h = self.display_surface.get_size()[1] // 2
 
+        # box setup
+        self.camera_borders = {"left": 200, "right": 200, "top": 100, "bottom": 100}
+        l = self.camera_borders['left']
+        t = self.camera_borders['top']
+        w = self.display_surface.get_size()[0]  - (self.camera_borders['left'] + self.camera_borders['right'])
+        h = self.display_surface.get_size()[1]  - (self.camera_borders['top'] + self.camera_borders['bottom'])
+        self.camera_rect = pygame.Rect(l,t,w,h)
 
         # ground
         self.ground_surface = pygame.image.load("graphics/ground.png").convert_alpha() # add the ground to the world
@@ -69,9 +76,24 @@ class CameraGroup(pygame.sprite.Group):
         self.offset.x = target.rect.centerx - self.half_w # centers camera to player on the x axis
         self.offset.y = target.rect.centery - self.half_h # centers camera to player on the y axis
 
+    def box_target_camera(self,target):
+
+        if target.rect.left < self.camera_rect.left:
+            self.camera_rect.left = target.rect.left
+        if target.rect.right > self.camera_rect.right:
+            self.camera_rect.right = target.rect.right
+        if target.rect.top < self.camera_rect.top:
+            self.camera_rect.top = target.rect.top
+        if target.rect.bottom > self.camera_rect.bottom:
+            self.camera_rect.bottom = target.rect.bottom
+
+        self.offset.x = self.camera_rect.left - self.camera_borders['left']
+        self.offset.y = self.camera_rect.top - self.camera_borders['top']
+
     def custom_draw(self,player): # ysort camera - so basicaly the player can now move in front and behind a tree for example to make a sorta fake 3d feel to the world
         
-        self.center_target_camera(player) # actualy centers the camera using the canter_target_camera function
+        #self.center_target_camera(player) # actualy centers the camera using the canter_target_camera function
+        self.box_target_camera(player)
 
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
@@ -81,6 +103,8 @@ class CameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery): # lambda is an anonymous function without a name - this line sorts the sprites layers
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
+
+            #pygame.draw.rect(self.display_surface, "red", self.camera_rect, 5)
 
 # initiating pygame with the screen size and the clock
 pygame.init()
