@@ -49,7 +49,22 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.input()
         self.rect.center += self.direction * self.speed
-        
+
+class CameraGroup(pygame.sprite.Group):
+    def __init__(self):
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
+        self.ground_surface = pygame.image.load("graphics/ground.png").convert_alpha() # add the ground to the world
+        self.ground_rect = self.ground_surface.get_rect(topleft = (0, 0))
+
+    def custom_draw(self): # ysort camera - so basicaly the player can now move in front and behind a tree for example to make a sorta fake 3d feel to the world
+
+        # ground
+        self.display_surface.blit(self.ground_surface,self.ground_rect) # displays the background
+
+        # active elements
+        for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery): # lambda is an anonymous function without a name - this line sorts the sprites layers
+            screen.blit(sprite.image,sprite.rect)
 
 # initiating pygame with the screen size and the clock
 pygame.init()
@@ -57,7 +72,7 @@ screen = pygame.display.set_mode((1280,720))
 clock = pygame.time.Clock()
 
 # setup
-camera_group = pygame.sprite.Group()
+camera_group = CameraGroup() # linking the camera_group variable to the CameraGroup class
 Player((640,360), camera_group) # player starting position
 
 # rendom tree generation
@@ -76,7 +91,7 @@ while True:
     screen.fill("#71ddee") # Blue water colour to act as the ocean surrounding the map
 
     camera_group.update()
-    camera_group.draw(screen)
+    camera_group.custom_draw()
 
     pygame.display.update()
     clock.tick(60) # fps
