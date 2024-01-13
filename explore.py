@@ -91,10 +91,10 @@ clock = pygame.time.Clock()
 camera_group = CameraGroup() # linking the camera_group variable to the CameraGroup class
 player = Player((640,360), camera_group) # player starting position
 
-# rendom tree generation
+# random tree generation
 for i in range(20):
-    random_x=randint(0,1000)
-    random_y=randint(0,1000)
+    random_x=randint(500,2750)
+    random_y=randint(1000,2000)
     Tree((random_x,random_y), camera_group)
 
 # game loop - literaly wont run for more than a second without this loop
