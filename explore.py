@@ -72,12 +72,17 @@ class CameraGroup(pygame.sprite.Group):
         self.ground_surface = pygame.image.load("graphics/ground.png").convert_alpha() # add the ground to the world
         self.ground_rect = self.ground_surface.get_rect(topleft = (0, 0))
 
+        # camera speed
+        self.keyboard_speed = 5
+        self.mouse_speed = 0.2
+
     def center_target_camera(self,target):
         self.offset.x = target.rect.centerx - self.half_w # centers camera to player on the x axis
         self.offset.y = target.rect.centery - self.half_h # centers camera to player on the y axis
 
     def box_target_camera(self,target):
 
+        # the box moves then player hits border
         if target.rect.left < self.camera_rect.left:
             self.camera_rect.left = target.rect.left
         if target.rect.right > self.camera_rect.right:
@@ -87,13 +92,28 @@ class CameraGroup(pygame.sprite.Group):
         if target.rect.bottom > self.camera_rect.bottom:
             self.camera_rect.bottom = target.rect.bottom
 
+        # offset so the camera actualy follows the player
         self.offset.x = self.camera_rect.left - self.camera_borders['left']
         self.offset.y = self.camera_rect.top - self.camera_borders['top']
 
+    # keybinds to move camera
+    def keyboard_control(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]: self.camera_rect.x -= self.keyboard_speed
+        if keys[pygame.K_RIGHT]: self.camera_rect.x += self.keyboard_speed
+        if keys[pygame.K_UP]: self.camera_rect.y -= self.keyboard_speed
+        if keys[pygame.K_DOWN]: self.camera_rect.y += self.keyboard_speed
+
+        # another offset so the manual movement of the camera actualy works
+        self.offset.x = self.camera_rect.left - self.camera_borders['left']
+        self.offset.y = self.camera_rect.top - self.camera_borders['top']
+
+
     def custom_draw(self,player): # ysort camera - so basicaly the player can now move in front and behind a tree for example to make a sorta fake 3d feel to the world
         
-        #self.center_target_camera(player) # actualy centers the camera using the canter_target_camera function
-        self.box_target_camera(player)
+        self.center_target_camera(player) # actualy centers the camera using the canter_target_camera function
+        self.box_target_camera(player) # camera follow player
+        self.keyboard_control() # move camera with arrow keys
 
         # ground
         ground_offset = self.ground_rect.topleft - self.offset
@@ -104,7 +124,7 @@ class CameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
 
-            #pygame.draw.rect(self.display_surface, "red", self.camera_rect, 5)
+            #pygame.draw.rect(self.display_surface, "red", self.camera_rect, 5) # NOTE: uncomment this for a broken red box that kinda follows you :)
 
 # initiating pygame with the screen size and the clock
 pygame.init()
