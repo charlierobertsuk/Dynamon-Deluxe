@@ -54,17 +54,33 @@ class CameraGroup(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
         self.display_surface = pygame.display.get_surface()
+
+        # camera offset
+        self.offset = pygame.math.Vector2(300, 100) # postion where camera begins (top left)
+        self.half_w = self.display_surface.get_size()[0] // 2
+        self.half_h = self.display_surface.get_size()[1] // 2
+
+
+        # ground
         self.ground_surface = pygame.image.load("graphics/ground.png").convert_alpha() # add the ground to the world
         self.ground_rect = self.ground_surface.get_rect(topleft = (0, 0))
 
-    def custom_draw(self): # ysort camera - so basicaly the player can now move in front and behind a tree for example to make a sorta fake 3d feel to the world
+    def center_target_camera(self,target):
+        self.offset.x = target.rect.centerx - self.half_w # centers camera to player on the x axis
+        self.offset.y = target.rect.centery - self.half_h # centers camera to player on the y axis
+
+    def custom_draw(self,player): # ysort camera - so basicaly the player can now move in front and behind a tree for example to make a sorta fake 3d feel to the world
+        
+        self.center_target_camera(player) # actualy centers the camera using the canter_target_camera function
 
         # ground
-        self.display_surface.blit(self.ground_surface,self.ground_rect) # displays the background
+        ground_offset = self.ground_rect.topleft - self.offset
+        self.display_surface.blit(self.ground_surface,ground_offset) # displays the background
 
         # active elements
         for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery): # lambda is an anonymous function without a name - this line sorts the sprites layers
-            screen.blit(sprite.image,sprite.rect)
+            offset_pos = sprite.rect.topleft - self.offset
+            self.display_surface.blit(sprite.image,offset_pos)
 
 # initiating pygame with the screen size and the clock
 pygame.init()
@@ -73,7 +89,7 @@ clock = pygame.time.Clock()
 
 # setup
 camera_group = CameraGroup() # linking the camera_group variable to the CameraGroup class
-Player((640,360), camera_group) # player starting position
+player = Player((640,360), camera_group) # player starting position
 
 # rendom tree generation
 for i in range(20):
@@ -91,7 +107,7 @@ while True:
     screen.fill("#71ddee") # Blue water colour to act as the ocean surrounding the map
 
     camera_group.update()
-    camera_group.custom_draw()
+    camera_group.custom_draw(player)
 
     pygame.display.update()
     clock.tick(60) # fps
