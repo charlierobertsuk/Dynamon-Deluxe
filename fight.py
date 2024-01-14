@@ -1,1 +1,3 @@
-import pygame # This imports pygame
+import pygame, sys # This imports pygame
+from random import randint
+
