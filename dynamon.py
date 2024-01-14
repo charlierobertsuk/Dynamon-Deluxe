@@ -1,5 +1,6 @@
 import pygame, sys # this imports pygame and system parameters
 from random import randint # imports randint but not all the other random stuff
+import fight # this imports fight.py into my main pygame
 
 # tree class
 class Tree(pygame.sprite.Sprite):
