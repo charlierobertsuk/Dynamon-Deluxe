@@ -5,8 +5,9 @@ from random import randint # imports randint but not all the other random stuff
 class Tree(pygame.sprite.Sprite):
 	def __init__(self,pos,group):
 		super().__init__(group)
+        # POV paper: I UsED tO bE a TrEeeEEeEe
 		self.image = pygame.image.load('graphics/tree.png').convert_alpha() # finds the tree image in the graphics folder
-		self.rect = self.image.get_rect(topleft = pos) # coordinate of the image is set to the tom left
+		self.rect = self.image.get_rect(topleft = pos) # coordinate of the image is set to the top left
 
 #player class
 class Player(pygame.sprite.Sprite):
