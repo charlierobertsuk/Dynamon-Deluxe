@@ -91,3 +91,16 @@ class Dynamon(pygame.sprite.Sprite):
         # hp should not go below 0 cos thats not meant to be possible
         if self.current_hp < 0:
             self.current_hp = 0
+
+    def use_potion(self):
+
+        # check if there are potions left
+        if self.num_potions > 0:
+
+            # add 30 hp (but don't go over the max hp)
+            self.current_hp += 30
+            if self.current_hp > self.max_hp:
+                self.current_hp = self.max_hp
+
+            # decrease the number of potions left
+            self.num_potions -= 1
