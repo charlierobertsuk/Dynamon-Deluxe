@@ -72,7 +72,7 @@ class Dynamon(pygame.sprite.Sprite):
         time.sleep(2) # using time import
 
         # calculate the damage
-        damage = (2 * self.level + 10) / 250 * self.attack / other.defense * move.power
+        damage = (2 * self.level + 10) / 250 * self.attack / other.defence * move.power
 
         # same type attack bonus (STAB)
         if move.type in self.types:
