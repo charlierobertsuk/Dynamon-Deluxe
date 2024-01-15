@@ -287,3 +287,20 @@ while game_status != 'quit':
                         display_message(f'{player_pokemon.name} used potion')
                         time.sleep(2)
                         game_status = 'rival turn'
+
+            # for selecting a move
+            elif game_status == 'player move':
+
+                # check which move button was clicked
+                for i in range(len(move_buttons)):
+                    button = move_buttons[i]
+
+                    if button.collidepoint(mouse_click):
+                        move = player_pokemon.moves[i]
+                        player_pokemon.perform_attack(rival_pokemon, move)
+
+                        # check if the rival's pokemon fainted
+                        if rival_pokemon.current_hp == 0:
+                            game_status = 'fainted'
+                        else:
+                            game_status = 'rival turn'
