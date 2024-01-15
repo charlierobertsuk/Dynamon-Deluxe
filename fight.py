@@ -390,3 +390,30 @@ while game_status != 'quit':
         pygame.draw.rect(game, black, (10, 350, 480, 140), 3)
 
         pygame.display.update()
+
+    # display the move buttons
+    if game_status == 'player move':
+
+        game.fill(white)
+        player_dynamon.draw()
+        rival_dynamon.draw()
+        player_dynamon.draw_hp()
+        rival_dynamon.draw_hp()
+
+        # create a button for each move
+        move_buttons = []
+        for i in range(len(player_dynamon.moves)):
+            move = player_dynamon.moves[i]
+            button_width = 240
+            button_height = 70
+            left = 10 + i % 2 * button_width
+            top = 350 + i // 2 * button_height
+            text_center_x = left + 120
+            text_center_y = top + 35
+            button = create_button(button_width, button_height, left, top, text_center_x, text_center_y, move.name.capitalize())
+            move_buttons.append(button)
+
+        # draw the black border
+        pygame.draw.rect(game, black, (10, 350, 480, 140), 3)
+
+        pygame.display.update()
