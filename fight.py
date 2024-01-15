@@ -369,3 +369,24 @@ while game_status != 'quit':
             game_status = 'player turn'
 
         pygame.display.update()
+
+        # pause for 1 second
+        time.sleep(1)
+
+    # display the fight and use potion buttons
+    if game_status == 'player turn':
+
+        game.fill(white)
+        player_dynamon.draw()
+        rival_dynamon.draw()
+        player_dynamon.draw_hp()
+        rival_dynamon.draw_hp()
+
+        # create the fight and use potion buttons
+        fight_button = create_button(240, 140, 10, 350, 130, 412, 'Fight')
+        potion_button = create_button(240, 140, 250, 350, 370, 412, f'Use Potion ({player_dynamon.num_potions})')
+
+        # draw the black border
+        pygame.draw.rect(game, black, (10, 350, 480, 140), 3)
+
+        pygame.display.update()
