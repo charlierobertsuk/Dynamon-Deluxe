@@ -1,4 +1,5 @@
 import pygame, sys # this imports pygame
+from pygame.locals import * # imports pygame Rect which basicaly stores rectangular coordinates
 import random # this imports random - randomness is key in a game like this
 import time # this imports time - for time between attacks and stuff
 import math # this imports math
@@ -156,3 +157,8 @@ class Dynamon(pygame.sprite.Sprite):
         text_rect.x = self.hp_x
         text_rect.y = self.hp_y + 30
         game.blit(text, text_rect)
+
+    
+    def get_rect(self):
+
+        return Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
