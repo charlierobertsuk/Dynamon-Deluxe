@@ -417,3 +417,29 @@ while game_status != 'quit':
         pygame.draw.rect(game, black, (10, 350, 480, 140), 3)
 
         pygame.display.update()
+
+
+    # rival selects a random move to attack with
+    if game_status == 'rival turn':
+
+        game.fill(white)
+        player_dynamon.draw()
+        rival_dynamon.draw()
+        player_dynamon.draw_hp()
+        rival_dynamon.draw_hp()
+
+        # empty the display box and pause for 2 seconds before attacking
+        display_message('')
+        time.sleep(2)
+
+        # select a random move
+        move = random.choice(rival_dynamon.moves)
+        rival_dynamon.perform_attack(player_dynamon, move)
+
+        # check if the player's dynamon fainted
+        if player_dynamon.current_hp == 0:
+            game_status = 'fainted'
+        else:
+            game_status = 'player turn'
+
+        pygame.display.update()
