@@ -203,7 +203,7 @@ def create_button(width, height, left, top, text_cx, text_cy, label):
 
 # create the starter dynamons
 level = 30
-kickflik = Dynamon('Kickflick', level, 25, 150) # used mine and fairbanks old program to help me make this - thats why some pokemon content was accidently written in my last commit
+kickflik = Dynamon('Kickflick', level, 25, 150) # used mine and fairbanks old program to help me make this - thats why some dynamon content was accidently written in my last commit
 torchip = Dynamon('Torchip', level, 175, 150)
 snorky = Dynamon('Snorky', level, 325, 150)
 dynamons = [kickflik, torchip, snorky]
@@ -226,7 +226,7 @@ while game_status != 'quit':
 
             # play again
             if event.key == K_y:
-                # reset the pokemons
+                # reset the dynamons
                 kickflik = Dynamon('Kickflick', level, 25, 150)
                 torchip = Dynamon('Torchip', level, 175, 150)
                 snorky = Dynamon('Snorky', level, 325, 150)
@@ -244,26 +244,26 @@ while game_status != 'quit':
             # coordinates of the mouse click
             mouse_click = event.pos
 
-            # for selecting a pokemon
-            if game_status == 'select pokemon':
+            # for selecting a dynamon
+            if game_status == 'select dynamon':
 
-                # check which pokemon was clicked on
+                # check which dynamon was clicked on
                 for i in range(len(dynamons)):
 
                     if dynamons[i].get_rect().collidepoint(mouse_click):
 
-                        # assign the player's and rival's pokemon
-                        player_pokemon = dynamons[i]
-                        rival_pokemon = dynamons[(i + 1) % len(dynamons)]
+                        # assign the player's and rival's dynamon
+                        player_dynamon = dynamons[i]
+                        rival_dynamon = dynamons[(i + 1) % len(dynamons)]
 
-                        # lower the rival pokemon's level to make the battle easier
-                        rival_pokemon.level = int(rival_pokemon.level * .75)
+                        # lower the rival dynamon's level to make the battle easier
+                        rival_dynamon.level = int(rival_dynamon.level * .75)
 
                         # set the coordinates of the hp bars
-                        player_pokemon.hp_x = 275
-                        player_pokemon.hp_y = 250
-                        rival_pokemon.hp_x = 50
-                        rival_pokemon.hp_y = 50
+                        player_dynamon.hp_x = 275
+                        player_dynamon.hp_y = 250
+                        rival_dynamon.hp_x = 50
+                        rival_dynamon.hp_y = 50
 
                         game_status = 'prebattle'
 
@@ -278,13 +278,13 @@ while game_status != 'quit':
                 if potion_button.collidepoint(mouse_click):
 
                     # force to attack if there are no more potions
-                    if player_pokemon.num_potions == 0:
+                    if player_dynamon.num_potions == 0:
                         display_message('No more potions left')
                         time.sleep(2)
                         game_status = 'player move'
                     else:
-                        player_pokemon.use_potion()
-                        display_message(f'{player_pokemon.name} used potion')
+                        player_dynamon.use_potion()
+                        display_message(f'{player_dynamon.name} used potion')
                         time.sleep(2)
                         game_status = 'rival turn'
 
@@ -296,11 +296,11 @@ while game_status != 'quit':
                     button = move_buttons[i]
 
                     if button.collidepoint(mouse_click):
-                        move = player_pokemon.moves[i]
-                        player_pokemon.perform_attack(rival_pokemon, move)
+                        move = player_dynamon.moves[i]
+                        player_dynamon.perform_attack(rival_dynamon, move)
 
-                        # check if the rival's pokemon fainted
-                        if rival_pokemon.current_hp == 0:
+                        # check if the rival's dynamon fainted
+                        if rival_dynamon.current_hp == 0:
                             game_status = 'fainted'
                         else:
                             game_status = 'rival turn'
