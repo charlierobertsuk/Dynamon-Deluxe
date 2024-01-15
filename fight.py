@@ -342,3 +342,30 @@ while game_status != 'quit':
             alpha += .4
 
             pygame.display.update()
+
+        # pause for 1 second
+        time.sleep(1)
+
+        # player sends out their dynamon
+        alpha = 0
+        while alpha < 255:
+
+            game.fill(white)
+            rival_dynamon.draw()
+            player_dynamon.draw(alpha)
+            display_message(f'Go {player_dynamon.name}!')
+            alpha += .4
+
+            pygame.display.update()
+
+        # draw the hp bars
+        player_dynamon.draw_hp()
+        rival_dynamon.draw_hp()
+
+        # who goes first
+        if rival_dynamon.speed > player_dynamon.speed:
+            game_status = 'rival turn'
+        else:
+            game_status = 'player turn'
+
+        pygame.display.update()
