@@ -66,7 +66,7 @@ class Dynamon(pygame.sprite.Sprite):
 
     def perform_attack(self, other, move):
 
-        print(f'{self.name} used {move.name}') # NOTE: Pls print onscreen!!
+        display_message(f'{self.name} used {move.name}')
 
         # pause for 2 seconds
         time.sleep(2) # using time import
@@ -199,3 +199,16 @@ def create_button(width, height, left, top, text_cx, text_cy, label):
     game.blit(text, text_rect)
 
     return button
+
+
+# create the starter dynamons
+level = 30
+kickflik = Dynamon('Bulbasaur', level, 25, 150)
+torchip = Dynamon('Charmander', level, 175, 150)
+snorky = Dynamon('Squirtle', level, 325, 150)
+dynamons = [kickflik, torchip, snorky]
+
+# the player's and rival's selected dynamon
+# none means no value but still makes it a variable for later :)
+player_dynamon = None
+rival_dynamon = None
