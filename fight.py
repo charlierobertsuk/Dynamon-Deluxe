@@ -179,3 +179,23 @@ def display_message(message):
 
     pygame.display.update()
 
+def create_button(width, height, left, top, text_cx, text_cy, label):
+
+    # position of the mouse cursor
+    mouse_cursor = pygame.mouse.get_pos()
+
+    button = Rect(left, top, width, height)
+
+    # highlight the button if mouse is pointing to it
+    if button.collidepoint(mouse_cursor):
+        pygame.draw.rect(game, gold, button)
+    else:
+        pygame.draw.rect(game, white, button)
+
+    # add the label to the button
+    font = pygame.font.Font(pygame.font.get_default_font(), 16)
+    text = font.render(f'{label}', True, black)
+    text_rect = text.get_rect(center=(text_cx, text_cy))
+    game.blit(text, text_rect)
+
+    return button
