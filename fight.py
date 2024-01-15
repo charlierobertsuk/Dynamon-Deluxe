@@ -304,3 +304,27 @@ while game_status != 'quit':
                             game_status = 'fainted'
                         else:
                             game_status = 'rival turn'
+
+if game_status == 'prebattle':
+    
+        # draw the selected dynamon
+        game.fill(white)
+        player_dynamon.draw()
+        pygame.display.update()
+
+        player_dynamon.set_moves()
+        rival_dynamon.set_moves()
+
+        # reposition the pokemons
+        player_dynamon.x = -50
+        player_dynamon.y = 100
+        rival_dynamon.x = 250
+        rival_dynamon.y = -50
+
+        # resize the sprites
+        player_dynamon.size = 300
+        rival_dynamon.size = 300
+        player_dynamon.set_sprite('back_default')
+        rival_dynamon.set_sprite('front_default')
+
+        game_status = 'start battle'
