@@ -7,11 +7,11 @@ import math # this imports math
 pygame.init()
 
 # the game window
-game_width = 1280
-game_height = 720
+game_width = 500
+game_height = 500
 size = (game_width, game_height)
 game = pygame.display.set_mode(size)
-pygame.display.set_caption("FIGHT!")
+pygame.display.set_caption("Dynamon Battle")
 
 # defining colours
 
@@ -203,12 +203,36 @@ def create_button(width, height, left, top, text_cx, text_cy, label):
 
 # create the starter dynamons
 level = 30
-kickflik = Dynamon('Bulbasaur', level, 25, 150)
-torchip = Dynamon('Charmander', level, 175, 150)
-snorky = Dynamon('Squirtle', level, 325, 150)
+kickflik = Dynamon('Kickflick', level, 25, 150) # used mine and fairbanks old program to help me make this - thats why some pokemon content was accidently written in my last commit
+torchip = Dynamon('Torchip', level, 175, 150)
+snorky = Dynamon('Snorky', level, 325, 150)
 dynamons = [kickflik, torchip, snorky]
 
 # the player's and rival's selected dynamon
 # none means no value but still makes it a variable for later :)
 player_dynamon = None
 rival_dynamon = None
+
+# game loop
+game_status = 'select dynamon'
+while game_status != 'quit':
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            game_status = 'quit'
+
+        # detect keypress
+        if event.type == KEYDOWN:
+
+            # play again
+            if event.key == K_y:
+                # reset the pokemons
+                kickflik = Dynamon('Kickflick', level, 25, 150)
+                torchip = Dynamon('Torchip', level, 175, 150)
+                snorky = Dynamon('Snorky', level, 325, 150)
+                dynamons = [kickflik, torchip, snorky]
+                game_status = 'select dynamon'
+
+            # quit
+            elif event.key == K_n:
+                game_status = 'quit'
