@@ -305,7 +305,7 @@ while game_status != 'quit':
                         else:
                             game_status = 'rival turn'
 
-if game_status == 'prebattle':
+    if game_status == 'prebattle':
     
         # draw the selected dynamon
         game.fill(white)
@@ -315,7 +315,7 @@ if game_status == 'prebattle':
         player_dynamon.set_moves()
         rival_dynamon.set_moves()
 
-        # reposition the pokemons
+        # reposition the dynamons
         player_dynamon.x = -50
         player_dynamon.y = 100
         rival_dynamon.x = 250
@@ -328,3 +328,17 @@ if game_status == 'prebattle':
         rival_dynamon.set_sprite('front_default')
 
         game_status = 'start battle'
+
+    # start battle animation
+    if game_status == 'start battle':
+
+        # rival sends out their dynamon
+        alpha = 0
+        while alpha < 255:
+
+            game.fill(white)
+            rival_dynamon.draw(alpha)
+            display_message(f'Rival sent out {rival_dynamon.name}!')
+            alpha += .4
+
+            pygame.display.update()
