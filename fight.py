@@ -6,7 +6,10 @@ import math # this imports math
 pygame.init()
 
 # the game window
-screen = pygame.display.set_mode((1280,720))
+game_width = 1280
+game_height = 720
+size = (game_width, game_height)
+game = pygame.display.set_mode(size)
 pygame.display.set_caption("FIGHT!")
 
 # defining colours
@@ -108,7 +111,7 @@ class Dynamon(pygame.sprite.Sprite):
     def set_sprite(self, size):
 
         # set the sprite to a predefined image
-        
+
         #self.image = pygame.image.load("graphics/dynadex/real-dynamon/kickflik.png").convert_alpha() # add sprite NOTE: change to not only be kickflick - fix pls
         self.image = pygame.Surface((self.size, self.size))
         self.image.fill(grey)
@@ -125,3 +128,31 @@ class Dynamon(pygame.sprite.Sprite):
         move5 = Move(name='Leaf Strike', power=45, type='Grass')
 
         self.moves = [move1, move2, move3, move4, move5]
+
+    def draw(self, alpha=255):
+
+        sprite = self.image.copy()
+        transparency = (255, 255, 255, alpha)
+        sprite.fill(transparency, None, pygame.BLEND_RGBA_MULT)
+        game.blit(sprite, (self.x, self.y))
+
+    
+    def draw_hp(self):
+
+        # display the health bar
+        bar_scale = 200 // self.max_hp
+        for i in range(self.max_hp):
+            bar = (self.hp_x + bar_scale * i, self.hp_y, bar_scale, 20)
+            pygame.draw.rect(game, red, bar)
+
+        for i in range(self.current_hp):
+            bar = (self.hp_x + bar_scale * i, self.hp_y, bar_scale, 20)
+            pygame.draw.rect(game, green, bar)
+
+        # display "HP" text
+        font = pygame.font.Font(pygame.font.get_default_font(), 16)
+        text = font.render(f'HP: {self.current_hp} / {self.max_hp}', True, black)
+        text_rect = text.get_rect()
+        text_rect.x = self.hp_x
+        text_rect.y = self.hp_y + 30
+        game.blit(text, text_rect)
