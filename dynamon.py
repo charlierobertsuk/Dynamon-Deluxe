@@ -66,7 +66,7 @@ class CameraGroup(pygame.sprite.Group):
         self.half_h = self.display_surface.get_size()[1] // 2
 
         # box setup
-        self.camera_borders = {"left": 200, "right": 200, "top": 100, "bottom": 100}
+        self.camera_borders = {"left": 400, "right": 400, "top": 200, "bottom": 200} #Change the size of the border at which the player moves the camera
         l = self.camera_borders['left']
         t = self.camera_borders['top']
         w = self.display_surface.get_size()[0]  - (self.camera_borders['left'] + self.camera_borders['right'])
