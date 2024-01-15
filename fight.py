@@ -45,8 +45,8 @@ class Dynamon(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-        # start number of healing spray
-        self.num_healspray = 3
+        # start number of healing spray (potions)
+        self.num_potions = 3
 
         # set predefined stats of the dynamon
         self.current_hp = 100 + self.level
