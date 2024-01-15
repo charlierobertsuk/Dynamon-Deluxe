@@ -1,3 +1,5 @@
-import pygame, sys # This imports pygame
-from random import randint
+import pygame, sys # this imports pygame
+import random # this imports random - randomness is key in a game like this
+import time # this imports time - for time between attacks and stuff
+import math # this imports math
 
