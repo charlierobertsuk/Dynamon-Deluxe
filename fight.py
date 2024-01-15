@@ -8,3 +8,12 @@ pygame.init()
 # the game window
 screen = pygame.display.set_mode((1280,720))
 pygame.display.set_caption("FIGHT!")
+
+# defining colours
+
+black = (0, 0, 0)
+gold = (218, 165, 32)
+grey = (200, 200, 200)
+green = (0, 200, 0)
+red = (200, 0, 0)
+white = (255, 255, 255)
