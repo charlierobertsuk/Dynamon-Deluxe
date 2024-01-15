@@ -162,3 +162,20 @@ class Dynamon(pygame.sprite.Sprite):
     def get_rect(self):
 
         return Rect(self.x, self.y, self.image.get_width(), self.image.get_height())
+
+def display_message(message):
+
+    # draw a white box with black border
+    pygame.draw.rect(game, white, (10, 350, 480, 140))
+    pygame.draw.rect(game, black, (10, 350, 480, 140), 3)
+
+    # display the message
+    font = pygame.font.Font(pygame.font.get_default_font(), 20)
+    text = font.render(message, True, black)
+    text_rect = text.get_rect()
+    text_rect.x = 30
+    text_rect.y = 410
+    game.blit(text, text_rect)
+
+    pygame.display.update()
+
