@@ -17,3 +17,12 @@ grey = (200, 200, 200)
 green = (0, 200, 0)
 red = (200, 0, 0)
 white = (255, 255, 255)
+
+# move as in taking turns
+
+class Move():
+
+    def __init__(self, name, power, type):
+        self.name = name # name of the move
+        self.power = power # power of move -- the amount of damage dealt
+        self.type = type # type as in like water, fire and grass
