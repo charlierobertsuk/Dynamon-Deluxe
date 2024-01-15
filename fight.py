@@ -105,8 +105,23 @@ class Dynamon(pygame.sprite.Sprite):
             # decrease the number of potions left
             self.num_potions -= 1
 
-    def set_sprite(self, side):
+    def set_sprite(self, size):
 
         # set the sprite to a predefined image
-        self.image = pygame.image.load("graphics/dynadex/real-dynamon/kickflik.png").convert_alpha() # add sprite NOTE: change to not only be kickflick - fix pls
+        
+        #self.image = pygame.image.load("graphics/dynadex/real-dynamon/kickflik.png").convert_alpha() # add sprite NOTE: change to not only be kickflick - fix pls
+        self.image = pygame.Surface((self.size, self.size))
         self.image.fill(grey)
+    
+    def set_moves(self):
+
+        self.moves = []
+
+        # defines some simple moves
+        move1 = Move(name='Sonic Shock', power=40, type='normal')
+        move2 = Move(name='Scratch', power=35, type='normal')
+        move3 = Move(name='Fire Storm', power=50, type='fire')
+        move4 = Move(name='Bubble Burst', power=45, type='water')
+        move5 = Move(name='Leaf Strike', power=45, type='Grass')
+
+        self.moves = [move1, move2, move3, move4, move5]
