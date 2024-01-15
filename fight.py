@@ -104,3 +104,9 @@ class Dynamon(pygame.sprite.Sprite):
 
             # decrease the number of potions left
             self.num_potions -= 1
+
+    def set_sprite(self, side):
+
+        # set the sprite to a predefined image
+        self.image = pygame.image.load("graphics/dynadex/real-dynamon/kickflik.png").convert_alpha() # add sprite NOTE: change to not only be kickflick - fix pls
+        self.image.fill(grey)
