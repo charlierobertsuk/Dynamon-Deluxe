@@ -443,3 +443,34 @@ while game_status != 'quit':
             game_status = 'player turn'
 
         pygame.display.update()
+
+    # one of the dynamons fainted
+    if game_status == 'fainted':
+
+        alpha = 255
+        while alpha > 0:
+
+            game.fill(white)
+            player_dynamon.draw_hp()
+            rival_dynamon.draw_hp()
+
+            # determine which dynamon fainted
+            if rival_dynamon.current_hp == 0:
+                player_dynamon.draw()
+                rival_dynamon.draw(alpha)
+                display_message(f'{rival_dynamon.name} fainted!')
+            else:
+                player_dynamon.draw(alpha)
+                rival_dynamon.draw()
+                display_message(f'{player_dynamon.name} fainted!')
+            alpha -= .4
+
+            pygame.display.update()
+
+        game_status = 'gameover'
+
+    # gameover :(
+    if game_status == 'gameover':
+        display_message('Play again (Y/N)?')
+
+pygame.quit()
