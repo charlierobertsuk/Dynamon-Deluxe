@@ -236,3 +236,54 @@ while game_status != 'quit':
             # quit
             elif event.key == K_n:
                 game_status = 'quit'
+
+
+        # detect mouse click
+        if event.type == MOUSEBUTTONDOWN:
+
+            # coordinates of the mouse click
+            mouse_click = event.pos
+
+            # for selecting a pokemon
+            if game_status == 'select pokemon':
+
+                # check which pokemon was clicked on
+                for i in range(len(dynamons)):
+
+                    if dynamons[i].get_rect().collidepoint(mouse_click):
+
+                        # assign the player's and rival's pokemon
+                        player_pokemon = dynamons[i]
+                        rival_pokemon = dynamons[(i + 1) % len(dynamons)]
+
+                        # lower the rival pokemon's level to make the battle easier
+                        rival_pokemon.level = int(rival_pokemon.level * .75)
+
+                        # set the coordinates of the hp bars
+                        player_pokemon.hp_x = 275
+                        player_pokemon.hp_y = 250
+                        rival_pokemon.hp_x = 50
+                        rival_pokemon.hp_y = 50
+
+                        game_status = 'prebattle'
+
+            # for selecting fight or use potion
+            elif game_status == 'player turn':
+
+                # check if fight button was clicked
+                if fight_button.collidepoint(mouse_click):
+                    game_status = 'player move'
+
+                # check if potion button was clicked
+                if potion_button.collidepoint(mouse_click):
+
+                    # force to attack if there are no more potions
+                    if player_pokemon.num_potions == 0:
+                        display_message('No more potions left')
+                        time.sleep(2)
+                        game_status = 'player move'
+                    else:
+                        player_pokemon.use_potion()
+                        display_message(f'{player_pokemon.name} used potion')
+                        time.sleep(2)
+                        game_status = 'rival turn'
