@@ -60,7 +60,6 @@ class Dynamon(pygame.sprite.Sprite):
         # set sprite to thefront facing sprite
         self.set_sprite("front_default")
 
-        
     def perform_attack(self, other, move):
 
         print(f'{self.name} used {move.name}') # NOTE: Pls print onscreen!!
@@ -85,3 +84,10 @@ class Dynamon(pygame.sprite.Sprite):
 
         other.take_damage(damage) # other character take damage
 
+    def take_damage(self, damage):
+
+        self.current_hp -= damage # quite clearly takes damage
+
+        # hp should not go below 0 cos thats not meant to be possible
+        if self.current_hp < 0:
+            self.current_hp = 0
