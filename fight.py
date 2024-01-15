@@ -59,3 +59,29 @@ class Dynamon(pygame.sprite.Sprite):
 
         # set sprite to thefront facing sprite
         self.set_sprite("front_default")
+
+        
+    def perform_attack(self, other, move):
+
+        print(f'{self.name} used {move.name}') # NOTE: Pls print onscreen!!
+
+        # pause for 2 seconds
+        time.sleep(2) # using time import
+
+        # calculate the damage
+        damage = (2 * self.level + 10) / 250 * self.attack / other.defense * move.power
+
+        # same type attack bonus (STAB)
+        if move.type in self.types:
+            damage *= 1.5 # damage multiplier by 1.5 times the damage
+
+        # critical hit (6.25% chance)
+        random_num = random.randint(1, 10000)
+        if random_num <= 625:
+            damage *= 1.5 # damage multiplier by 1.5 times the damage again if crit
+
+        # round down the damage
+        damage = math.floor(damage) # math.floor rounds the number down to the nearest intager
+
+        other.take_damage(damage) # other character take damage
+
