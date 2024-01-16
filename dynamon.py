@@ -1,3 +1,5 @@
+# NOTE: Collisions, Animations, NPC's , Interaction (E to interact), UI, Inventory, Currency, Save Files
+
 import pygame, sys # this imports pygame and system parameters
 from random import randint # imports randint but not all the other random stuff
 import fight # this imports fight.py into my main pygame

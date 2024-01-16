@@ -1,3 +1,5 @@
+# NOTE: Inventory, Animations, Graphics, Object Repositioning
+
 import pygame, sys # this imports pygame
 from pygame.locals import * # imports pygame Rect which basicaly stores rectangular coordinates
 import random # this imports random - randomness is key in a game like this
@@ -49,7 +51,7 @@ class Dynamon(pygame.sprite.Sprite):
         self.y = y
 
         # start number of healing spray (potions)
-        self.num_potions = 3
+        self.num_potions = 3 # NOTE: pls change so you can collect/win potions but only use a certian amount per battle (1 is probably enough) -- Make inventory
 
         # set predefined stats of the dynamon
         self.current_hp = 100 + self.level
@@ -316,7 +318,7 @@ while game_status != 'quit':
 
     if game_status == 'prebattle':
     
-        # draw the selected dynamon
+        #draw the selected dynamon
         game.fill(white)
         player_dynamon.draw()
         pygame.display.update()
