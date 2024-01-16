@@ -72,12 +72,12 @@ class Dynamon(pygame.sprite.Sprite):
         display_message(f'{self.name} used {move.name}')
 
         # pause for 2 seconds
-        time.sleep(2) # using time import
+        time.sleep(1) # using time import
 
         # calculate the damage
         damage = (2 * self.level + 10) / 250 * self.attack / other.defence * move.power
 
-        # same type attack bonus (STAB)
+        # same type attack bonus
         if move.type in self.types:
             damage *= 1.5 # damage multiplier by 1.5 times the damage
 
@@ -85,11 +85,17 @@ class Dynamon(pygame.sprite.Sprite):
         random_num = random.randint(1, 10000)
         if random_num <= 625:
             damage *= 1.5 # damage multiplier by 1.5 times the damage again if crit
+            damage = math.floor(damage)
+            display_message("Crit!")
+            time.sleep(2)
 
         # round down the damage
         damage = math.floor(damage) # math.floor rounds the number down to the nearest intager
 
         other.take_damage(damage) # other character take damage
+
+        display_message(f'{damage} damage!')
+        time.sleep(2)
 
     def take_damage(self, damage):
 
@@ -283,12 +289,12 @@ while game_status != 'quit':
                     # force to attack if there are no more potions
                     if player_dynamon.num_potions == 0:
                         display_message('No more potions left')
-                        time.sleep(2)
+                        time.sleep(1)
                         game_status = 'player move'
                     else:
                         player_dynamon.use_potion()
                         display_message(f'{player_dynamon.name} used potion')
-                        time.sleep(2)
+                        time.sleep(1)
                         game_status = 'rival turn'
 
             # for selecting a move
@@ -433,7 +439,7 @@ while game_status != 'quit':
 
         # empty the display box and pause for 2 seconds before attacking
         display_message('')
-        time.sleep(2)
+        time.sleep(1)
 
         # select a random move
         move = random.choice(rival_dynamon.moves)
