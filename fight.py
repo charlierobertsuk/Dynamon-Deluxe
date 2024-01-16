@@ -59,7 +59,7 @@ class Dynamon(pygame.sprite.Sprite):
         self.speed = 40
 
         # set dynamon types
-        self.types = ["normal"]
+        self.types = ["normal", "fire", "grass", "electric", "shadow"]
 
         # set sprite width
         self.size = 150
