@@ -131,7 +131,7 @@ class CameraGroup(pygame.sprite.Group):
 
 # initiating pygame with the screen size and the clock
 pygame.init()
-screen = pygame.display.set_mode((1280,720))
+screen = pygame.display.set_mode((1280,720),pygame.FULLSCREEN)
 pygame.display.set_caption("Dynamon Deluxe")
 clock = pygame.time.Clock()
 

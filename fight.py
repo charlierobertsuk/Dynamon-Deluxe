@@ -7,10 +7,13 @@ import math # this imports math
 pygame.init()
 
 # the game window
-game_width = 500
-game_height = 500
-size = (game_width, game_height)
-game = pygame.display.set_mode(size)
+
+#game_width = 500
+#game_height = 500
+#size = (game_width, game_height)
+#game = pygame.display.set_mode(size)
+
+game = pygame.display.set_mode((500,500),pygame.FULLSCREEN)
 pygame.display.set_caption("Dynamon Battle")
 
 # defining colours
