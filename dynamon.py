@@ -1,8 +1,9 @@
 # NOTE: Collisions, Animations, NPC's , Interaction (E to interact), UI, Inventory, Currency, Save Files
 
 import pygame, sys # this imports pygame and system parameters
+from pygame.locals import * # imports pygame Rect which basicaly stores rectangular coordinates - tbf it imports all but I specificaly use Rect
 from random import randint # imports randint but not all the other random stuff
-import fight # this imports fight.py into my main pygame
+#import fight # this imports fight.py into my main pygame
 
 # tree class
 class Tree(pygame.sprite.Sprite):
@@ -133,7 +134,8 @@ class CameraGroup(pygame.sprite.Group):
 
 # initiating pygame with the screen size and the clock
 pygame.init()
-screen = pygame.display.set_mode((1280,720),pygame.FULLSCREEN)
+#screen = pygame.display.set_mode((1280,720),pygame.FULLSCREEN)
+screen = pygame.display.set_mode((1280,720)) # fullscreen dosen't work on ym linux machine - i think it is cos screen too smol to fit fullscreen or smthn
 pygame.display.set_caption("Dynamon Deluxe")
 clock = pygame.time.Clock()
 
