@@ -15,7 +15,9 @@ pygame.init()
 #size = (game_width, game_height)
 #game = pygame.display.set_mode(size)
 
-game = pygame.display.set_mode((500,500),pygame.FULLSCREEN)
+#game = pygame.display.set_mode((500,500),pygame.FULLSCREEN)
+game = pygame.display.set_mode((500,500),)
+
 pygame.display.set_caption("Dynamon Battle")
 
 # defining colours
